@@ -18,6 +18,17 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemProperties>
+						<property><name>panda.accessKey</name><value>${panda.accessKey}</value></property>
+						<property><name>panda.cloudId</name><value>${panda.cloudIdKey}</value></property>
+						<property><name>panda.secretKey</name><value>${panda.secretKey}</value></property>
+						<property><name>panda.apiHost</name><value>${panda.apiHost}</value></property>
+					</systemProperties>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

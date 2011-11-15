@@ -1,9 +1,29 @@
+/**
+ *  Copyright 2011 Maximilian Hille <mh@lambdasoup.com>
+ * 
+ *  This file is part of panda-lib.
+ *  
+ *  panda-lib is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  panda-lib is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU General Public License
+ *  along with panda-lib.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.lambdasoup.panda;
 
 import java.util.Collection;
 import java.util.Map;
 
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.lambdasoup.panda.model.Encoding;
@@ -13,18 +33,21 @@ import com.lambdasoup.panda.model.Video;
 
 public class PandaTest {
 	
-	/**
-	 * put your credentials here for testing
-	 */
-	static String ACCESS_KEY = null;
-	// NEVER EVER ENTER PRODUCTION CLOUD ID HERE!!!!
-	static String CLOUD_ID = null;
-	static String SECRET_KEY = null;
-	static String API_HOST = "api.eu.pandastream.com";
-	
-	Panda panda = new Panda(ACCESS_KEY, CLOUD_ID, SECRET_KEY, API_HOST);
+	Panda panda;
 	Video video;
+	
+	@BeforeClass
+	public void setup() {
+		
+		String accessKey = System.getProperty("panda.accessKey");
+		String cloudId   = System.getProperty("panda.cloudId");
+		String secretKey = System.getProperty("panda.secretKey");
+		String apiHost   = System.getProperty("panda.apiHost");
 
+		panda = new Panda(accessKey, cloudId, secretKey, apiHost);
+		
+	}
+	
 	@Test
 	public void getProfilesTest() {
 		Collection<Profile> profiles = this.panda.getProfiles();
@@ -88,7 +111,6 @@ public class PandaTest {
 	@Test
 	public void postRemoteVideoTest() throws InterruptedException {
 		this.video = this.panda.postRemoteVideo("http://panda-test-harness-videos.s3.amazonaws.com/panda.mp4");
-		//this.video = this.panda.postRemoteVideo("http://static.mikestar.com/records/6af6/OuOywF2wifvG4.flv");
 		
 		assert this.video != null;
 	}
