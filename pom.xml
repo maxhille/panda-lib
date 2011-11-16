@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lambdasoup</groupId>
 	<artifactId>panda</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.1.1</version>
 	<name>Java Lib for pandastream.com</name>
 	<description>Java Lib for pandastream.com</description>
 
