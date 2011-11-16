@@ -22,6 +22,8 @@ package com.lambdasoup.panda;
 import java.util.Collection;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -52,27 +54,18 @@ public class PandaTest {
 	public void getProfilesTest() {
 		Collection<Profile> profiles = this.panda.getProfiles();
 		
-		assert profiles != null;
+		Assert.assertNotNull(profiles);
 	}
 
 	@Test
 	public void postProfileTest() {
 		Profile profile = new Profile();
 		
-		profile.name = "h263";
-		profile.extname = ".3gp";
-		profile.height = 360;
-		profile.width = 450;
-		profile.command = "ffmpeg -i §input_file$ -r 10	-b 37k-bt 5k -g 16 -vcodec h263 -s qcif -rc_buf_aggressivity 1.0 -bufsize 74000 -maxrate 37k -minrate 37k  -rc_init_occupancy 55500 -an -qmin 1 -qmax 30 -qcomp 0.0 -y $output_file$";
+		profile.presetName = "h264";
 		
 		Profile profileResponse = this.panda.postProfile(profile);
 		
-		assert profileResponse.name.equals(profile.name);
-		assert profileResponse.height.equals(profile.height);
-		assert profileResponse.width.equals(profile.width);
-		assert profileResponse.extname.equals(profile.extname);
-		assert profileResponse.command.equals(profile.command);
-		
+		Assert.assertNotNull(profileResponse);
 	}
 
 	@Test(dependsOnMethods={"postRemoteVideoTest"})

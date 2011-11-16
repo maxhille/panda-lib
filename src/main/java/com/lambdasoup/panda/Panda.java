@@ -95,11 +95,7 @@ public class Panda {
 		
 		Map<String,String> params = new HashMap<String,String>();
 		
-		params.put("name", profile.name);
-		params.put("extname", profile.extname);
-		params.put("width", profile.width.toString());
-		params.put("height", profile.height.toString());
-		params.put("command", profile.command);
+		params.put("preset_name", profile.presetName);
 		
 		String json = PandaHttp.post("/profiles.json", params, this.properties);
 		
