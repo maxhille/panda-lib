@@ -1,3 +1,18 @@
 README for panda-lib
 
-(put text here)
+This is a small lib providing easy access to the API of the pandastream
+cloud video transcoding service.
+
+If you need more of the API reflected or improvement/bugfixes feel free
+to contact me per <mh@lambdasoup.com>.
+
+USAGE
+
+For usage see test class.
+
+
+DEPENDENCIES
+
+Apache Commons Http Libs
+Gson Json Library
+
