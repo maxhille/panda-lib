@@ -57,7 +57,7 @@ public class PandaTest {
 		
 		Assert.assertNotNull(profiles);
 	}
-/*
+
 	@Test
 	public void postProfileTest() {
 		Profile profile = new Profile();
@@ -108,7 +108,7 @@ public class PandaTest {
 		
 		assert this.video != null;
 	}
-*/
+
   @Test
   public void postVideoTest(){
     File videoFile = new File(System.getProperty("test.videoPath"));
