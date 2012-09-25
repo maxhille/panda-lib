@@ -19,6 +19,7 @@
 
 package com.lambdasoup.panda;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
@@ -49,14 +50,14 @@ public class PandaTest {
 		panda = new Panda(accessKey, cloudId, secretKey, apiHost);
 		
 	}
-	
+
 	@Test
 	public void getProfilesTest() {
 		Collection<Profile> profiles = this.panda.getProfiles();
 		
 		Assert.assertNotNull(profiles);
 	}
-
+/*
 	@Test
 	public void postProfileTest() {
 		Profile profile = new Profile();
@@ -88,7 +89,7 @@ public class PandaTest {
 		
 		assert video != null;
 	}
-	
+
 	@Test(dependsOnMethods={"postRemoteVideoTest"})
 	public void getVideosTest() {
 		Collection<Video> videos = this.panda.getVideos(Video.Status.success);
@@ -107,6 +108,14 @@ public class PandaTest {
 		
 		assert this.video != null;
 	}
+*/
+  @Test
+  public void postVideoTest(){
+    File videoFile = new File(System.getProperty("test.videoPath"));
+    this.video = this.panda.postVideo(videoFile);
+
+    assert this.video != null;
+  }
 
 	@Test
 	public void accessDetailsTest() {
@@ -118,7 +127,7 @@ public class PandaTest {
 	@AfterClass
 	public void cleanUp() throws InterruptedException {
 		// delete all videos in panda cloud
-		Collection<Video> videos = this.panda.getVideos();
+/*		Collection<Video> videos = this.panda.getVideos();
 		for (Video video : videos)
 			this.panda.deleteVideo(video.id);
 		assert this.panda.getVideos().size() == 0;
@@ -127,7 +136,7 @@ public class PandaTest {
 		Collection<Encoding> encodings = this.panda.getEncodings();
 		for (Encoding encoding : encodings)
 			this.panda.deleteEncoding(encoding.id);
-		assert this.panda.getEncodings().size() == 0;
+		assert this.panda.getEncodings().size() == 0; */
 	}
 
 }
