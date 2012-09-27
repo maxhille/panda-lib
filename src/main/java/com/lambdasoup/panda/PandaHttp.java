@@ -197,7 +197,7 @@ public class PandaHttp {
 
 		Collections.sort(qparams, comparator);
 
-		return URLEncodedUtils.format(qparams, "UTF-8");
+	  return URLEncodedUtils.format(qparams, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E","~");
 	}
 
 

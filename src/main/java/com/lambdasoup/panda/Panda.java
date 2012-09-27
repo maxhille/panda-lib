@@ -92,10 +92,16 @@ public class Panda {
 	}
 
   public Video postVideo(File file) {
+    return this.postVideo(file,null);
+  }
+
+  public Video postVideo(File file, String payload) {
     log.debug("posting video (" + file.getPath() +")");
 		
 		Map<String,String> params = new HashMap<String,String>();
-		
+	  if(payload!=null){
+      params.put("payload", payload);
+    }
 		String json = PandaHttp.postFile("/videos.json", params, this.properties, file);
 		
 		log.debug("posted video. json response (" + json +")");

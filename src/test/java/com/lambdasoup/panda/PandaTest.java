@@ -33,15 +33,19 @@ import com.lambdasoup.panda.model.Encoding;
 import com.lambdasoup.panda.model.Profile;
 import com.lambdasoup.panda.model.Video;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class PandaTest {
 	
 	Panda panda;
 	Video video;
-	
+	Log log;
+
 	@BeforeClass
 	public void setup() {
-		
+	
+    log = LogFactory.getLog(PandaTest.class);
 		String accessKey = System.getProperty("panda.accessKey");
 		String cloudId   = System.getProperty("panda.cloudId");
 		String secretKey = System.getProperty("panda.secretKey");
@@ -113,8 +117,9 @@ public class PandaTest {
   public void postVideoTest(){
     File videoFile = new File(System.getProperty("test.videoPath"));
     this.video = this.panda.postVideo(videoFile);
-
-    assert this.video != null;
+    assert this.video.id != null;
+    this.video = this.panda.postVideo(videoFile, "my hats");
+    assert this.video.id != null;
   }
 
 	@Test
