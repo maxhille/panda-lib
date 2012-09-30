@@ -19,6 +19,7 @@
 
 package com.lambdasoup.panda;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
@@ -89,7 +90,27 @@ public class Panda {
 		
 		return gson.fromJson(json, Video.class);
 	}
-	
+
+  public Video postVideo(File file) {
+    return this.postVideo(file,null);
+  }
+
+  public Video postVideo(File file, String payload) {
+    log.debug("posting video (" + file.getPath() +")");
+		
+		Map<String,String> params = new HashMap<String,String>();
+	  if(payload!=null){
+      params.put("payload", payload);
+    }
+		String json = PandaHttp.postFile("/videos.json", params, this.properties, file);
+		
+		log.debug("posted video. json response (" + json +")");
+		
+		return gson.fromJson(json, Video.class);
+
+  }
+
+
 	public Profile postProfile(Profile profile) {
 		log.debug("posting profile (" + profile.name +")");
 		
