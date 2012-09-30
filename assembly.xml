@@ -11,7 +11,7 @@
     <fileSet>
       <directory>${project.basedir}</directory>
       <includes>
-        <include>README</include>
+        <include>README.md</include>
         <include>COPYING</include>
         <include>pom.xml</include>
       </includes>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lambdasoup</groupId>
 	<artifactId>panda</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.1.2</version>
 	<name>Java Lib for pandastream.com</name>
 	<description>Java Lib for pandastream.com</description>
 
@@ -26,7 +26,8 @@
 						<property><name>panda.cloudId</name><value>${panda.cloudId}</value></property>
 						<property><name>panda.secretKey</name><value>${panda.secretKey}</value></property>
 						<property><name>panda.apiHost</name><value>${panda.apiHost}</value></property>
-					</systemProperties>
+				    <property><name>test.videoPath</name><value>${test.videoPath}</value></property>
+          </systemProperties>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -58,6 +59,11 @@
 			<version>4.1.2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+    <dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>1.7.1</version>

@@ -22,7 +22,10 @@ package com.lambdasoup.panda;
 /**
  * @author Vivien Schilis
  */
+
+import java.io.UnsupportedEncodingException;
 import java.io.IOException;
+import java.io.File;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -45,9 +48,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.http.entity.mime.HttpMultipartMode;
 
 public class PandaHttp {
 	public enum Method {
@@ -71,6 +78,35 @@ public class PandaHttp {
 		}
 
 		return stringResponse;
+	}
+
+
+	static String postFile(String url, Map<String,String> params, Properties properties, File file) {
+		Map<String,String> sParams = signedParams("POST", url, params, properties);
+		String flattenParams = canonicalQueryString(sParams);
+		String requestUrl = "http://" + properties.getProperty("api-host") + ":80/v2" + url + "?" + flattenParams;
+
+		HttpPost httpPost = new HttpPost(requestUrl);
+    String stringResponse = null;
+    FileBody bin = new FileBody(file, "application/octet-stream");
+    try{
+      MultipartEntity entity = new MultipartEntity();
+      entity.addPart("file", bin);
+
+      httpPost.setEntity(entity);
+
+      DefaultHttpClient httpclient = new DefaultHttpClient();
+
+
+			HttpResponse response = httpclient.execute(httpPost);
+			stringResponse = EntityUtils.toString(response.getEntity());
+
+    }catch(UnsupportedEncodingException ex){
+      ex.printStackTrace();
+    } catch(IOException e){
+			e.printStackTrace();
+		}		
+    return stringResponse;
 	}
 
 
@@ -161,7 +197,7 @@ public class PandaHttp {
 
 		Collections.sort(qparams, comparator);
 
-		return URLEncodedUtils.format(qparams, "UTF-8");
+	  return URLEncodedUtils.format(qparams, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E","~");
 	}
 
 
