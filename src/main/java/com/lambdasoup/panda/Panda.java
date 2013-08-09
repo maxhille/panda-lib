@@ -37,6 +37,7 @@ import com.lambdasoup.panda.PandaHttp.Method;
 import com.lambdasoup.panda.model.Encoding;
 import com.lambdasoup.panda.model.Encoding.Status;
 import com.lambdasoup.panda.model.Profile;
+import com.lambdasoup.panda.model.UploadSession;
 import com.lambdasoup.panda.model.Video;
 
 
@@ -166,6 +167,32 @@ public class Panda {
 		params.put("status", status.name());
 		
 		return this.getVideos(params);
+	}
+	
+	/**
+	 * Before uploading a file to panda, you will need to create a session for each particular files. In return you get a unique location for this file.
+	 * 
+	 * Required parameters
+	 * file_size: Size in bytes of the video
+	 * file_name: File name of the video
+	 * 
+     * Optional parameters
+     * use_all_profiles: Default is false
+     * profiles: comma-separated list of profile names or IDs to be used during encoding. Alternatively, specify "none" so no encodings are created yet
+     * path_format: represents the complete video path without the extension name. It can be constructed using some provided keywords.
+     * payload: arbitrary string stored along the Video object.
+     * 
+	 * @param params
+	 * @return
+	 */
+	public UploadSession createVideoUploadSession(Map<String,String> params){
+		if(!(params.containsKey("file_size") && params.containsKey("file_name"))){
+			throw new RuntimeException("file_size and file_name parameters must be present");
+		}
+		
+		String json = PandaHttp.post("/videos/upload.json", params, this.properties);
+		
+		return gson.fromJson(json, UploadSession.class);
 	}
 	
 	public Collection<Video> getVideos() {
