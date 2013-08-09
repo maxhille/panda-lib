@@ -28,7 +28,6 @@ import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -187,7 +186,9 @@ public class Panda {
 	 * @return
 	 */
 	public UploadSession createVideoUploadSession(Map<String,String> params){
-		Assert.assertTrue("file_size and file_name parameters must be present", params.containsKey("file_size") && params.containsKey("file_name"));
+		if(!(params.containsKey("file_size") && params.containsKey("file_name"))){
+			throw new RuntimeException("file_size and file_name parameters must be present");
+		}
 		
 		String json = PandaHttp.post("/videos/upload.json", params, this.properties);
 		
