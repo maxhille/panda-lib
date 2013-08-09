@@ -46,6 +46,10 @@ mvn install test -Dtest.videoPath=my_local_test_video -Dpanda.accessKey=my_acces
 
 ## Changelog
 
+### 0.1.2 -> 0.2.0
+
+* implemented begin upload session
+
 ### 0.1.1 -> 0.1.2
 
 Contributor http://github.com/mrloop
